@@ -1,5 +1,9 @@
 # watExp
+### Data Generation
 
+```py
+$ python generate_parallelData.py --f_lang Hindi --s_lang <Indic Language>
+```
 ### Training:
 
 ```py
