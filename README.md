@@ -1,4 +1,11 @@
 # watExp
+### Create Environment
+
+```bash
+conda create -n <environment name> python==3.7.0
+pip install -r requirements.txt
+```
+
 ### Data Generation
 
 ```py
