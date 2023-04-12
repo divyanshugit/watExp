@@ -31,40 +31,99 @@ def main():
         help="Enter the any Indic Language present in Samanatar Dataset",
     )
 
-    LANGUAGES = {
-        "Assamese": "as",
-        "Bengali": "bn",
-        "Gujarati": "gu",
-        "Hindi": "hi",
-        "Kannada": "kn",
-        "Malayalam": "ml",
-        "Marathi": "mr",
-        "Odia": "or",
-        "Punjabi": "pa",
-        "Tamil": "ta",
-        "Telugu": "te",
-        "English": "en",
-    }
-
+    parser.add_argument(
+        "--dataset",
+        type=str,
+        required=True,
+        help="Name of the dataset(wat_2021, flores, ntrex)"
+    )
     args = parser.parse_args()
 
     source_language = args.s_lang
     target_language = args.t_lang
-    s_lang = LANGUAGES[source_language]
-    t_lang = LANGUAGES[target_language]
 
-    firstSet = f"/nlsasfs/home/ttbhashini/prathosh/divyanshu/watExp/finalrepo/test"
-    secondSet = f"/nlsasfs/home/ttbhashini/prathosh/divyanshu/watExp/finalrepo/test"
+    LANGUAGE_KEY = {
+            "Assamese": "as",
+            "Bengali": "bn",
+            "Gujarati": "gu",
+            "Hindi": "hi",
+            "Kannada": "kn",
+            "Malayalam": "ml",
+            "Marathi": "mr",
+            "Odia": "or",
+            "Punjabi": "pa",
+            "Tamil": "ta",
+            "Telugu": "te",
+        }
+    if args.dataset == "wat_2021":
+        
 
-    # firstSetSI, firstSetSII, secondSetSI, secondSetSII subject to change with a better variable name
+        s_lang = LANGUAGE_KEY[source_language]
+        t_lang = LANGUAGE_KEY[target_language]
+        
+        path = f"/home/ece/divyanshu/finalrepo/test"
+        # firstSetSI, firstSetSII, secondSetSI, secondSetSII subject to change with a better variable name
 
-    with open(f"{firstSet}/test.{s_lang}", "r", encoding="utf-8", errors="ignore") as f:
-        firstSetS = f.readlines()
+        with open(f"{path}/test.{s_lang}", "r", encoding="utf-8", errors="ignore") as f:
+            firstSetS = f.readlines()
 
-    with open(
-        f"{secondSet}/test.{t_lang}", "r", encoding="utf-8", errors="ignore"
-    ) as f:
-        secondSetS = f.readlines()
+        with open(
+            f"{path}/test.{t_lang}", "r", encoding="utf-8", errors="ignore"
+        ) as f:
+            secondSetS = f.readlines()
+
+    elif args.dataset == "ntrex":
+
+        LANGUAGES = {
+            "Bengali": "ben",
+            "Gujarati": "guj",
+            "Hindi": "hin",
+            "Kannada": "kan",
+            "Malayalam": "mal",
+            "Marathi": "mar",
+            "Tamil": "tam",
+            "Telugu": "tel",           
+        }
+
+        s_lang = LANGUAGES[source_language]
+        t_lang = LANGUAGES[target_language]
+        # newstest2019-ref.arb.txt
+        path = "/home/ece/divyanshu/NTREX/NTREX-128"
+        with open(f"{path}/newstest2019-ref.{s_lang}.txt", "r", encoding="utf-8", errors="ignore") as f:
+            firstSetS = f.readlines()
+
+        with open(
+            f"{path}/newstest2019-ref.{t_lang}.txt", "r", encoding="utf-8", errors="ignore"
+        ) as f:
+            secondSetS = f.readlines()
+
+    elif args.dataset == "flores":
+        LANGUAGES = {
+            "Assamese": "asm_Beng",
+            "Bengali": "ben_Beng",
+            "Gujarati": "guj_Gujr",
+            "Hindi": "hin_Deva",
+            "Kannada": "kan_Knda",
+            "Malayalam": "mal_Mlym",
+            "Marathi": "mar_Deva",
+            "Odia": "ory_Orya",
+            "Tamil": "tam_Taml",
+            "Telugu": "tel_Telu",
+        }
+        
+        s_lang = LANGUAGES[source_language]
+        t_lang = LANGUAGES[target_language]
+
+        #ace_Arab.devtest
+        path = "/home/ece/divyanshu/flores200_dataset/devtest"
+        with open(f"{path}/{s_lang}.devtest", "r", encoding="utf-8", errors="ignore") as f:
+            firstSetS = f.readlines()
+
+        with open(
+            f"{path}/{t_lang}.devtest", "r", encoding="utf-8", errors="ignore"
+        ) as f:
+            secondSetS = f.readlines()
+
 
     print(f"firstSetSI: {len(firstSetS)}, Unique firstSetSI: {len(set(firstSetS))}")
     print(f"secondSetSI: {len(secondSetS)}, Unique secondSetSI: {len(set(secondSetS))}")
